@@ -5,7 +5,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-public class DeleteCourseAndReviewsDemo {
+public class CreateCourseAndStudentsDemo {
     public static void main(String[] args) {
         SessionFactory factory = new Configuration()
                 .configure("hibernate.cfg.xml")
@@ -17,32 +17,35 @@ public class DeleteCourseAndReviewsDemo {
                 .buildSessionFactory();
 
         try (factory; Session session = factory.getCurrentSession()) {
-
-            //start a transaction
             session.beginTransaction();
 
-            //get the course
-            int theId = 10;
-            Course tempCourse = session.get(Course.class, theId);
+            Course tempCourse = new Course("Pacman - How To Score One Million Points.");
 
-            //print the course
-            System.out.println("Deleting the course ...");
-            System.out.println(tempCourse);
+            //save the student
+            System.out.println("\nSaving the course ...");
+            session.save(tempCourse);
+            System.out.println("Saved the course: " + tempCourse);
 
-            //print the course reviews
-            System.out.println(tempCourse.getReviews());
+            //create the students
+            Student tempStudent1 = new Student("John", "Dow", "john@mail.com");
+            Student tempStudent2 = new Student("John", "Wick", "boogerman@mail.com");
 
-            //delete the course
-            session.delete(tempCourse);
+            //add students to the course
+            tempCourse.addStudent(tempStudent1);
+            tempCourse.addStudent(tempStudent2);
+
+            //save the students
+            System.out.println("\nSaving students...");
+            session.save(tempStudent1);
+            session.save(tempStudent2);
+            System.out.println("Saved students: " + tempCourse.getStudents());
 
             //commit transaction
             session.getTransaction().commit();
-
 
             System.out.println("Done!");
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 }

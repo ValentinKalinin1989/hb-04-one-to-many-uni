@@ -6,7 +6,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="hb-04-one-to-many-uni" />
+        <module name="hb-05-many-to-many-uni" />
       </profile>
     </annotationProcessing>
   </component>
